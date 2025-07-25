@@ -21,7 +21,7 @@ int Quit_1(SDL_Texture* persStand, SDL_Texture* persRun, SDL_Texture* brick, SDL
 	return 0;
 }
 
-int maprender_1(map* map, SDL_Renderer* ren, SDL_Texture* brick, SDL_Texture* doorc, SDL_Texture* dooro, SDL_Rect* dstRectPers) // отрисовка карты
+int maprender_1(map* map, SDL_Renderer* ren, SDL_Texture* brick, SDL_Texture* doorc, SDL_Texture* dooro, SDL_Rect* dstRectPers) // РѕС‚СЂРёСЃРѕРІРєР° РєР°СЂС‚С‹
 {
 	bool mapren = true;
 	while (mapren)
@@ -73,8 +73,8 @@ int lvl_1(SDL_Renderer* ren, bool run_1)
 	Vector2f speedPers = { 0, 0 };
 	Vector2f globalAccel = { 0, 0 };
 
-	TTF_Font* text; //шрифт текста на уровнях
-	SDL_Color tc = { 0, 0, 0, 0 }; // цвет текста
+	TTF_Font* text; //С€СЂРёС„С‚ С‚РµРєСЃС‚Р° РЅР° СѓСЂРѕРІРЅСЏС…
+	SDL_Color tc = { 0, 0, 0, 0 }; // С†РІРµС‚ С‚РµРєСЃС‚Р°
 
 	Uint32 start = 0;
 	start = SDL_GetTicks();
@@ -120,7 +120,7 @@ int lvl_1(SDL_Renderer* ren, bool run_1)
 
 	map map = { NULL, NULL, 0, 0, NULL };
 
-	text = TTF_OpenFont("font.ttf", 100);//открытие шрифта
+	text = TTF_OpenFont("font.ttf", 100);//РѕС‚РєСЂС‹С‚РёРµ С€СЂРёС„С‚Р°
 
 	persStand = load("Sprites/StandSprites.png", &srcRectPers, ren, persStand);
 	dstRectPers = { 0 ,0, 110, 80 };
@@ -133,10 +133,10 @@ int lvl_1(SDL_Renderer* ren, bool run_1)
 
 	doorc = load("KenneY/PNG/DoorC.png", &srcRectDoorc, ren, doorc);
 
-	if (level_info("Level1.txt", &map) == 1)//считывание в структуру 1 уровня
+	if (level_info("Level1.txt", &map) == 1)//СЃС‡РёС‚С‹РІР°РЅРёРµ РІ СЃС‚СЂСѓРєС‚СѓСЂСѓ 1 СѓСЂРѕРІРЅСЏ
 		return 1;
 
-	tok = strtok_s(map.note, "\n", &next_tok);	//текст для уровня 1
+	tok = strtok_s(map.note, "\n", &next_tok);	//С‚РµРєСЃС‚ РґР»СЏ СѓСЂРѕРІРЅСЏ 1
 	text_tex = create_text_texture(ren, tok, text, tc, &rect_t);
 
 	while (run_1)
@@ -170,53 +170,53 @@ int lvl_1(SDL_Renderer* ren, bool run_1)
 			}
 		}
 
-		speedPers.x += globalAccel.x * dt;//механика уровня
+		speedPers.x += globalAccel.x * dt;//РјРµС…Р°РЅРёРєР° СѓСЂРѕРІРЅСЏ
 		speedPers.y += globalAccel.y * dt;
 
 		posPers.x += speedPers.x * dt;
 		posPers.y += speedPers.y * dt;
 
-		if (posPers.y + dstRectPers.h > floorRect.y && posPers.y + dstRectPers.h < floorRect.y + floorRect.h)//коллизия с полом
+		if (posPers.y + dstRectPers.h > floorRect.y && posPers.y + dstRectPers.h < floorRect.y + floorRect.h)//РєРѕР»Р»РёР·РёСЏ СЃ РїРѕР»РѕРј
 		{
 			posPers.y = floorRect.y - dstRectPers.h;
 			speedPers.y = 0;
 			onfloor = true;
 		}
 
-		if (posPers.x <= -30 || posPers.x + dstRectPers.w >= 1316)//выход за пределы экрана
+		if (posPers.x <= -30 || posPers.x + dstRectPers.w >= 1316)//РІС‹С…РѕРґ Р·Р° РїСЂРµРґРµР»С‹ СЌРєСЂР°РЅР°
 		{
 			posPers = { 100,550};
 			DeathCounter++;
 		}
 
-		if (posPers.y <= 495 && posPers.y >= 490)//коллизия с боковинами
+		if (posPers.y <= 495 && posPers.y >= 490)//РєРѕР»Р»РёР·РёСЏ СЃ Р±РѕРєРѕРІРёРЅР°РјРё
 		{
-			if ((posPers.x <= 42 && posPers.x >= -20) || (posPers.x + dstRectPers.w <= 92 && posPers.x + dstRectPers.w >= 0))//низ левой
+			if ((posPers.x <= 42 && posPers.x >= -20) || (posPers.x + dstRectPers.w <= 92 && posPers.x + dstRectPers.w >= 0))//РЅРёР· Р»РµРІРѕР№
 			{
 				posPers.y = 495;
 				speedPers.y = 0;
 			}
-			if ((posPers.x >= 1204 && posPers.x <= 1276) || (posPers.x + dstRectPers.w >= 1244 && posPers.x + dstRectPers.w <= 1306))//низ правой
+			if ((posPers.x >= 1204 && posPers.x <= 1276) || (posPers.x + dstRectPers.w >= 1244 && posPers.x + dstRectPers.w <= 1306))//РЅРёР· РїСЂР°РІРѕР№
 			{
 				posPers.y = 495;
 				speedPers.y = 0;
 			}
 		}
-		if (posPers.y < 495)//бок левой
+		if (posPers.y < 495)//Р±РѕРє Р»РµРІРѕР№
 		{
 			if (posPers.x <= 42)
 			{
 				speedPers.x = 0;
 				posPers.x = 42;
 			}
-			if (posPers.x + dstRectPers.w >= 1244)//бок правой
+			if (posPers.x + dstRectPers.w >= 1244)//Р±РѕРє РїСЂР°РІРѕР№
 			{
 				speedPers.x = 0;
 				posPers.x = 1134;
 			}
 		}
 
-		if (makeJump)//прыжок
+		if (makeJump)//РїСЂС‹Р¶РѕРє
 		{
 			if (onfloor)
 			{
@@ -226,7 +226,7 @@ int lvl_1(SDL_Renderer* ren, bool run_1)
 			makeJump = false;
 		}
 
-		const Uint8* state = SDL_GetKeyboardState(NULL); //повороты в лево/право
+		const Uint8* state = SDL_GetKeyboardState(NULL); //РїРѕРІРѕСЂРѕС‚С‹ РІ Р»РµРІРѕ/РїСЂР°РІРѕ
 		if (!(state[SDL_SCANCODE_A] && state[SDL_SCANCODE_D]))
 		{
 			if (state[SDL_SCANCODE_A])
@@ -252,7 +252,7 @@ int lvl_1(SDL_Renderer* ren, bool run_1)
 		dstRectPers.y = posPers.y;
 		old_posPers = posPers;
 
-		if (isIdle && onfloor) //анимация стояния
+		if (isIdle && onfloor) //Р°РЅРёРјР°С†РёСЏ СЃС‚РѕСЏРЅРёСЏ
 		{
 			animTime += dt;
 			if (animTime > frameTime)
@@ -276,7 +276,7 @@ int lvl_1(SDL_Renderer* ren, bool run_1)
 			}
 		}
 
-		if (!isIdle && onfloor) //анимация бега
+		if (!isIdle && onfloor) //Р°РЅРёРјР°С†РёСЏ Р±РµРіР°
 		{
 			animTime += dt;
 			if (animTime > frameTime)
@@ -295,16 +295,16 @@ int lvl_1(SDL_Renderer* ren, bool run_1)
 			}
 		}
 
-		//====================================================== ОТРИСОВКА ===============================================================================
-		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);//фон
+		//====================================================== РћРўР РРЎРћР’РљРђ ===============================================================================
+		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);//С„РѕРЅ
 		SDL_RenderClear(ren);
 
-		if (maprender_1(&map, ren, brick, doorc, dooro, &dstRectPers) == 1)//отрисовка карты
+		if (maprender_1(&map, ren, brick, doorc, dooro, &dstRectPers) == 1)//РѕС‚СЂРёСЃРѕРІРєР° РєР°СЂС‚С‹
 		{ 
 			passed = true;
 		}
 
-		if (isIdle && onfloor)//отрисовка стоящего персонажа
+		if (isIdle && onfloor)//РѕС‚СЂРёСЃРѕРІРєР° СЃС‚РѕСЏС‰РµРіРѕ РїРµСЂСЃРѕРЅР°Р¶Р°
 		{
 			switch (dirPers)
 			{
@@ -317,7 +317,7 @@ int lvl_1(SDL_Renderer* ren, bool run_1)
 			}
 		}
 
-		if (!isIdle && onfloor)//отрисовка бегущего персонажа
+		if (!isIdle && onfloor)//РѕС‚СЂРёСЃРѕРІРєР° Р±РµРіСѓС‰РµРіРѕ РїРµСЂСЃРѕРЅР°Р¶Р°
 		{
 			switch (dirPers)
 			{
@@ -330,7 +330,7 @@ int lvl_1(SDL_Renderer* ren, bool run_1)
 			}
 		}
 
-		if (!onfloor)//отрисовка прыжка
+		if (!onfloor)//РѕС‚СЂРёСЃРѕРІРєР° РїСЂС‹Р¶РєР°
 		{
 			switch (dirPers)
 			{
@@ -343,12 +343,12 @@ int lvl_1(SDL_Renderer* ren, bool run_1)
 			}
 		}
 
-		if (globalAccel.y == 0)//для корректного первого запуска
+		if (globalAccel.y == 0)//РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕРіРѕ РїРµСЂРІРѕРіРѕ Р·Р°РїСѓСЃРєР°
 			globalAccel = { 0, 1200 };
 
-		SDL_RenderCopy(ren, text_tex, NULL, &rect_t);//отрисовка текста на уровне
+		SDL_RenderCopy(ren, text_tex, NULL, &rect_t);//РѕС‚СЂРёСЃРѕРІРєР° С‚РµРєСЃС‚Р° РЅР° СѓСЂРѕРІРЅРµ
 
-		if (SDL_GetTicks() - start == 1000)//таймер
+		if (SDL_GetTicks() - start == 1000)//С‚Р°Р№РјРµСЂ
 		{
 			time_s += 1;
 			if (time_s % 60 == 0)
@@ -359,7 +359,7 @@ int lvl_1(SDL_Renderer* ren, bool run_1)
 			time = timer(time_s,time_m,time,ren,text,tc,&time_r);
 			start = SDL_GetTicks();
 		}
-		SDL_RenderCopy(ren, time, NULL, &time_r);//отрисовка таймера
+		SDL_RenderCopy(ren, time, NULL, &time_r);//РѕС‚СЂРёСЃРѕРІРєР° С‚Р°Р№РјРµСЂР°
 
 		SDL_RenderPresent(ren);
 		

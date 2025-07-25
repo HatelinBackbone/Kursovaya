@@ -1,7 +1,7 @@
 #include "Functions.h"
 #include "Menu.h"
 
-struct but//ñòğóêòóğà äëÿ õğàíåíèÿ íàäïèñåé
+struct but//ÑÑ‚Ñ€ÑƒĞºÑ‚ÑƒÑ€Ğ° Ğ´Ğ»Ñ Ñ…Ñ€Ğ°Ğ½ĞµĞ½Ğ¸Ñ Ğ½Ğ°Ğ´Ğ¿Ğ¸ÑĞµĞ¹
 {
 	char note[64];
 	char lvl1[4] = "1";
@@ -12,12 +12,12 @@ struct but//ñòğóêòóğà äëÿ õğàíåíèÿ íàäïèñåé
 	char l3n[128] = "\0";
 };
 
-int but_rec(const char file[], but* menu)//÷òåíèå èç ôàéëà â ñòğóêòóğó íàäïèñåé
+int but_rec(const char file[], but* menu)//Ñ‡Ñ‚ĞµĞ½Ğ¸Ğµ Ğ¸Ğ· Ñ„Ğ°Ğ¹Ğ»Ğ° Ğ² ÑÑ‚Ñ€ÑƒĞºÑ‚ÑƒÑ€Ñƒ Ğ½Ğ°Ğ´Ğ¿Ğ¸ÑĞµĞ¹
 {
 	FILE* f;
 	if (fopen_s(&f, file, "r+") != 0)
 	{
-		printf_s("Íå óäàëîñü îòêğûòü ôàéë\n");
+		printf_s("ĞĞµ ÑƒĞ´Ğ°Ğ»Ğ¾ÑÑŒ Ğ¾Ñ‚ĞºÑ€Ñ‹Ñ‚ÑŒ Ñ„Ğ°Ğ¹Ğ»\n");
 		return 1;
 	}
 
@@ -49,7 +49,7 @@ int but_rec(const char file[], but* menu)//÷òåíèå èç ôàéëà â ñòğóêòóğó íàäïèñåé
 	return 0;
 }
 
-void exit_sel(Mix_Chunk* click, TTF_Font* txt, SDL_Texture* button, SDL_Texture* b1, SDL_Texture* l1n, SDL_Texture* b2, SDL_Texture* l2n, SDL_Texture* b3, SDL_Texture* l3n, SDL_Texture* back, SDL_Texture* note)//çàâåğøåíèå è î÷èñòêà ïàìÿòè
+void exit_sel(Mix_Chunk* click, TTF_Font* txt, SDL_Texture* button, SDL_Texture* b1, SDL_Texture* l1n, SDL_Texture* b2, SDL_Texture* l2n, SDL_Texture* b3, SDL_Texture* l3n, SDL_Texture* back, SDL_Texture* note)//Ğ·Ğ°Ğ²ĞµÑ€ÑˆĞµĞ½Ğ¸Ğµ Ğ¸ Ğ¾Ñ‡Ğ¸ÑÑ‚ĞºĞ° Ğ¿Ğ°Ğ¼ÑÑ‚Ğ¸
 {
 	Mix_FreeChunk(click);
 	TTF_CloseFont(txt);
@@ -64,14 +64,14 @@ void exit_sel(Mix_Chunk* click, TTF_Font* txt, SDL_Texture* button, SDL_Texture*
 	SDL_DestroyTexture(note);
 }
 
-int lvl_sel(SDL_Renderer* ren, bool sel)//ìåíş âûáîğà óğîâíåé	
+int lvl_sel(SDL_Renderer* ren, bool sel)//Ğ¼ĞµĞ½Ñ Ğ²Ñ‹Ğ±Ğ¾Ñ€Ğ° ÑƒÑ€Ğ¾Ğ²Ğ½ĞµĞ¹	
 {
 	but but;
 	SDL_Event ev;
 	SDL_Rect dstNote = { 300,50,700,150 }, dstLNote = { 100,500,700,100 }, srcButton = { 0,0,0,0 }, srcBack = { 0,0,0,0 }, dstBack = {10,10,24,23}, dstButton = { 0,0,50,50 };
 	SDL_Texture* button = NULL, * b1 = NULL, * b2 = NULL, * b3 = NULL, * note = NULL, * back = NULL, *l1n = NULL, * l2n = NULL, * l3n = NULL;
 	TTF_Font* txt = NULL;
-	SDL_Color txtc = { 0, 0, 0, 0 }; // öâåò òåêñòà
+	SDL_Color txtc = { 0, 0, 0, 0 }; // Ñ†Ğ²ĞµÑ‚ Ñ‚ĞµĞºÑÑ‚Ğ°
 
 	Mix_Chunk* click = NULL;
 	click = Mix_LoadWAV("Click.wav");
@@ -82,13 +82,13 @@ int lvl_sel(SDL_Renderer* ren, bool sel)//ìåíş âûáîğà óğîâíåé
 
 	bool n1 = false, n2 = false, n3 = false;
 
-	button = load("But_Kv.png", &srcButton, ren, button);//êíîïêè â ìåíş
+	button = load("But_Kv.png", &srcButton, ren, button);//ĞºĞ½Ğ¾Ğ¿ĞºĞ¸ Ğ² Ğ¼ĞµĞ½Ñ
 	back = load("Back.png", &srcBack, ren, back);
 
-	txt = TTF_OpenFont("font.ttf", 100);//îòêğûòèå øğèôòà äëÿ ìåíş
+	txt = TTF_OpenFont("font.ttf", 100);//Ğ¾Ñ‚ĞºÑ€Ñ‹Ñ‚Ğ¸Ğµ ÑˆÑ€Ğ¸Ñ„Ñ‚Ğ° Ğ´Ğ»Ñ Ğ¼ĞµĞ½Ñ
 
-	but_rec("Select.txt", &but);//çàïèñü äàííûõ èç ôàéëà â ñòğóêòóğó
-	note = create_text_texture(ren, but.note, txt, txtc, &dstLNote);//ñîçäàíèå òåêñòîâûõ òåêñòóğ
+	but_rec("Select.txt", &but);//Ğ·Ğ°Ğ¿Ğ¸ÑÑŒ Ğ´Ğ°Ğ½Ğ½Ñ‹Ñ… Ğ¸Ğ· Ñ„Ğ°Ğ¹Ğ»Ğ° Ğ² ÑÑ‚Ñ€ÑƒĞºÑ‚ÑƒÑ€Ñƒ
+	note = create_text_texture(ren, but.note, txt, txtc, &dstLNote);//ÑĞ¾Ğ·Ğ´Ğ°Ğ½Ğ¸Ğµ Ñ‚ĞµĞºÑÑ‚Ğ¾Ğ²Ñ‹Ñ… Ñ‚ĞµĞºÑÑ‚ÑƒÑ€
 	b1 = create_text_texture(ren, but.lvl1, txt, txtc, &dstButton);
 	l1n = create_text_texture(ren, but.l1n, txt, txtc, &dstLNote);
 	b2 = create_text_texture(ren, but.lvl2, txt, txtc, &dstButton);
@@ -98,10 +98,10 @@ int lvl_sel(SDL_Renderer* ren, bool sel)//ìåíş âûáîğà óğîâíåé
 
 	while (sel)
 	{
-		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255); //ôîí 
+		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255); //Ñ„Ğ¾Ğ½ 
 		SDL_RenderClear(ren);
 
-		while (SDL_PollEvent(&ev))//îáğàáîòêà ñîáûòèé
+		while (SDL_PollEvent(&ev))//Ğ¾Ğ±Ñ€Ğ°Ğ±Ğ¾Ñ‚ĞºĞ° ÑĞ¾Ğ±Ñ‹Ñ‚Ğ¸Ğ¹
 		{
 			switch (ev.type)
 			{
@@ -109,7 +109,7 @@ int lvl_sel(SDL_Renderer* ren, bool sel)//ìåíş âûáîğà óğîâíåé
 				exit_sel(click, txt, button, b1, l1n, b2, l2n, b3, l3n, back, note);
 				return 0;
 				break;
-			case SDL_MOUSEMOTION://åñëè ìûøü íàâåäåíà íà êíîïêè óğîâíåé
+			case SDL_MOUSEMOTION://ĞµÑĞ»Ğ¸ Ğ¼Ñ‹ÑˆÑŒ Ğ½Ğ°Ğ²ĞµĞ´ĞµĞ½Ğ° Ğ½Ğ° ĞºĞ½Ğ¾Ğ¿ĞºĞ¸ ÑƒÑ€Ğ¾Ğ²Ğ½ĞµĞ¹
 				xm = ev.motion.x;
 				ym = ev.motion.y;
 				if (ym >= 300 && ym <= 400)
@@ -131,20 +131,20 @@ int lvl_sel(SDL_Renderer* ren, bool sel)//ìåíş âûáîğà óğîâíåé
 					n3 = false;
 				}
 				break;
-			case SDL_MOUSEBUTTONDOWN://êëèê íà êíîïêó óğîâíÿ
+			case SDL_MOUSEBUTTONDOWN://ĞºĞ»Ğ¸Ğº Ğ½Ğ° ĞºĞ½Ğ¾Ğ¿ĞºÑƒ ÑƒÑ€Ğ¾Ğ²Ğ½Ñ
 				switch (ev.button.button)
 				{
 				case SDL_BUTTON_LEFT:
 					int x = ev.button.x;
 					int y = ev.button.y;
-					if (y >= 10 && y <= 34)//âûõîä â ãëàâíîå ìåíş
+					if (y >= 10 && y <= 34)//Ğ²Ñ‹Ñ…Ğ¾Ğ´ Ğ² Ğ³Ğ»Ğ°Ğ²Ğ½Ğ¾Ğµ Ğ¼ĞµĞ½Ñ
 						if (x >= 10 && x <= 33)
 						{
 							Mix_PlayChannel(-1, click, 0);
 							exit_sel(click, txt, button, b1, l1n, b2, l2n, b3, l3n, back, note);
 							return -1;
 						}
-					if (y >= 300 && y <= 400)//êëèêè ïî êíîïêàì âûáîğà óğîâíåé
+					if (y >= 300 && y <= 400)//ĞºĞ»Ğ¸ĞºĞ¸ Ğ¿Ğ¾ ĞºĞ½Ğ¾Ğ¿ĞºĞ°Ğ¼ Ğ²Ñ‹Ğ±Ğ¾Ñ€Ğ° ÑƒÑ€Ğ¾Ğ²Ğ½ĞµĞ¹
 					{
 						if (x >= 490 && x <= 580)//1 lvl
 						{
@@ -166,17 +166,17 @@ int lvl_sel(SDL_Renderer* ren, bool sel)//ìåíş âûáîğà óğîâíåé
 			}
 		}
 
-		if(n1)//îòğèñîâêà ïîäïèñåé ê óğîâíÿì
+		if(n1)//Ğ¾Ñ‚Ñ€Ğ¸ÑĞ¾Ğ²ĞºĞ° Ğ¿Ğ¾Ğ´Ğ¿Ğ¸ÑĞµĞ¹ Ğº ÑƒÑ€Ğ¾Ğ²Ğ½ÑĞ¼
 			SDL_RenderCopy(ren, l1n, NULL, &dstLNote);
 		if(n2)
 			SDL_RenderCopy(ren, l2n, NULL, &dstLNote);
 		if (n3)
 			SDL_RenderCopy(ren, l3n, NULL, &dstLNote);
 
-		SDL_RenderCopy(ren, note, NULL, &dstNote);//çàïèñü íàä óğîâíÿìè
-		SDL_RenderCopy(ren, back, NULL, &dstBack);//ñòğåëêà âûõîäà â ìåíş
+		SDL_RenderCopy(ren, note, NULL, &dstNote);//Ğ·Ğ°Ğ¿Ğ¸ÑÑŒ Ğ½Ğ°Ğ´ ÑƒÑ€Ğ¾Ğ²Ğ½ÑĞ¼Ğ¸
+		SDL_RenderCopy(ren, back, NULL, &dstBack);//ÑÑ‚Ñ€ĞµĞ»ĞºĞ° Ğ²Ñ‹Ñ…Ğ¾Ğ´Ğ° Ğ² Ğ¼ĞµĞ½Ñ
 
-		for (n=0; n < 3; n++)//îòğèñîâêà êíîïîê óğîâíåé ñ íàäïèñÿìè íà íèõ
+		for (n=0; n < 3; n++)//Ğ¾Ñ‚Ñ€Ğ¸ÑĞ¾Ğ²ĞºĞ° ĞºĞ½Ğ¾Ğ¿Ğ¾Ğº ÑƒÑ€Ğ¾Ğ²Ğ½ĞµĞ¹ Ñ Ğ½Ğ°Ğ´Ğ¿Ğ¸ÑÑĞ¼Ğ¸ Ğ½Ğ° Ğ½Ğ¸Ñ…
 		{
 			dstButton = { 490 + n * 110,300,90,100 };
 			SDL_RenderCopy(ren, button, NULL, &dstButton);

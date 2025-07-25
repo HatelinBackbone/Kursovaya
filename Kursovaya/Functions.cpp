@@ -3,50 +3,50 @@
 const int brick_w = 72;
 const int brick_h = 72;
 
-int init() //инициализация библиотек
+int init() //РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р±РёР±Р»РёРѕС‚РµРє
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
 		const char* s = SDL_GetError();
-		printf_s("Ошибка инициализации SDL\n");
+		printf_s("РћС€РёР±РєР° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё SDL\n");
 		return 1;
 	}
 	if (IMG_Init(IMG_INIT_PNG) == 0)
 	{
 		const char* s = IMG_GetError();
-		printf_s("Ошибка инициализации IMG-библиотеки %s\n", s);
+		printf_s("РћС€РёР±РєР° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё IMG-Р±РёР±Р»РёРѕС‚РµРєРё %s\n", s);
 		return 1;
 	}
 	if (TTF_Init() != 0)
 	{
 		const char* s = TTF_GetError();
-		printf_s("Ошибка инициализации TTF %s\n", s);
+		printf_s("РћС€РёР±РєР° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё TTF %s\n", s);
 		return 1;
 	}
 	/*if ((Mix_Init(MIX_INIT_OGG)) != MIX_INIT_OGG)
 	{
 		const char* s = Mix_GetError();
-		printf_s("Ошибка инициализации MIX-библиотеки %s\n", s);
+		printf_s("РћС€РёР±РєР° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё MIX-Р±РёР±Р»РёРѕС‚РµРєРё %s\n", s);
 		return 1;
 	}*/
 	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1) 
 	{
 		const char* s = Mix_GetError();
-		printf_s("Ошибка инициализации MIX-библиотеки %s\n", s);
+		printf_s("РћС€РёР±РєР° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё MIX-Р±РёР±Р»РёРѕС‚РµРєРё %s\n", s);
 		return 1;
 	}
 	
 	return 0;
 }
 
-SDL_Texture* load(const char* file, SDL_Rect* rect, SDL_Renderer* ren, SDL_Texture* tex) //создание текстур
+SDL_Texture* load(const char* file, SDL_Rect* rect, SDL_Renderer* ren, SDL_Texture* tex) //СЃРѕР·РґР°РЅРёРµ С‚РµРєСЃС‚СѓСЂ
 {
 	SDL_Surface* surf = NULL;
 	surf = IMG_Load(file);
 	if (surf == NULL)
 	{
 		const char* s = IMG_GetError();
-		printf_s("Ошибка зарузки изображения %s: %s\n", file, s);
+		printf_s("РћС€РёР±РєР° Р·Р°СЂСѓР·РєРё РёР·РѕР±СЂР°Р¶РµРЅРёСЏ %s: %s\n", file, s);
 		return NULL;
 	}
 	rect->x = 0;
@@ -57,7 +57,7 @@ SDL_Texture* load(const char* file, SDL_Rect* rect, SDL_Renderer* ren, SDL_Textu
 	if (tex == NULL)
 	{
 		const char* s = SDL_GetError();
-		printf_s("Ошибка создания текстуры персонажа %s\n", s);
+		printf_s("РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ С‚РµРєСЃС‚СѓСЂС‹ РїРµСЂСЃРѕРЅР°Р¶Р° %s\n", s);
 		return NULL;
 	}
 
@@ -65,12 +65,12 @@ SDL_Texture* load(const char* file, SDL_Rect* rect, SDL_Renderer* ren, SDL_Textu
 	return tex;
 }
 
-int level_info(const char file[], map* Map) //чтение уровня из файла
+int level_info(const char file[], map* Map) //С‡С‚РµРЅРёРµ СѓСЂРѕРІРЅСЏ РёР· С„Р°Р№Р»Р°
 {
 	FILE* f;
 	if (fopen_s(&f, file, "r+") != 0)
 	{
-		printf_s("Не удалось открыть файл\n");
+		printf_s("РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»\n");
 		return 1;
 	}
 
@@ -79,7 +79,7 @@ int level_info(const char file[], map* Map) //чтение уровня из файла
 	fscanf_s(f, "%d %d\n", &Map->w, &Map->h);
 	printf_s("%d %d\n", Map->w, Map->h);
 
-	Map->rect = (char**)malloc(sizeof(char*) * Map->h); //выделение памяти под карту
+	Map->rect = (char**)malloc(sizeof(char*) * Map->h); //РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РїРѕРґ РєР°СЂС‚Сѓ
 	char buffer[256];
 	for (int i = 0; i < Map->h; i++)
 	{
@@ -96,7 +96,7 @@ int level_info(const char file[], map* Map) //чтение уровня из файла
 	return 0;
 }
 
-int maprender(map* map, SDL_Renderer* ren, SDL_Texture* brick, SDL_Texture* doorc, SDL_Texture* dooro, SDL_Rect* dstRectPers) // отрисовка карты
+int maprender(map* map, SDL_Renderer* ren, SDL_Texture* brick, SDL_Texture* doorc, SDL_Texture* dooro, SDL_Rect* dstRectPers) // РѕС‚СЂРёСЃРѕРІРєР° РєР°СЂС‚С‹
 {
 	bool mapren = true;
 	while (mapren)
@@ -135,7 +135,7 @@ int maprender(map* map, SDL_Renderer* ren, SDL_Texture* brick, SDL_Texture* door
 	return 0;
 }
 
-SDL_Texture* create_text_texture(SDL_Renderer* ren, const char* text, TTF_Font* font, SDL_Color color, SDL_Rect* rect) //создание текстуры текста
+SDL_Texture* create_text_texture(SDL_Renderer* ren, const char* text, TTF_Font* font, SDL_Color color, SDL_Rect* rect) //СЃРѕР·РґР°РЅРёРµ С‚РµРєСЃС‚СѓСЂС‹ С‚РµРєСЃС‚Р°
 {
 	SDL_Surface* surf = NULL;
 	surf = TTF_RenderUTF8_Blended(font, text, color);
@@ -146,14 +146,14 @@ SDL_Texture* create_text_texture(SDL_Renderer* ren, const char* text, TTF_Font* 
 	return texture;
 }
 
-SDL_Texture* timer(Uint16 time_s, Uint16 time_m, SDL_Texture* time, SDL_Renderer* ren, TTF_Font* text, SDL_Color tc, SDL_Rect* time_r)//таймер
+SDL_Texture* timer(Uint16 time_s, Uint16 time_m, SDL_Texture* time, SDL_Renderer* ren, TTF_Font* text, SDL_Color tc, SDL_Rect* time_r)//С‚Р°Р№РјРµСЂ
 {
 	char ch_1[8];
 	char ch_2[8];
 
-	SDL_DestroyTexture(time);//уничтожение старой текстуры таймера
+	SDL_DestroyTexture(time);//СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ СЃС‚Р°СЂРѕР№ С‚РµРєСЃС‚СѓСЂС‹ С‚Р°Р№РјРµСЂР°
 
-	sprintf(ch_1, "%d ", time_m);//создание текстуры таймера
+	sprintf(ch_1, "%d ", time_m);//СЃРѕР·РґР°РЅРёРµ С‚РµРєСЃС‚СѓСЂС‹ С‚Р°Р№РјРµСЂР°
 	sprintf(ch_2, ": %d", time_s);
 	strcat(ch_1, ch_2);
 	time = create_text_texture(ren, ch_1, text, tc, time_r);

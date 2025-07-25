@@ -28,34 +28,34 @@ int main(int argc, char** argv)
 	int s = 0;
 	int sw;
 
-	init();//инициализация библиотек
+	init();//РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р±РёР±Р»РёРѕС‚РµРє
 
-	win = SDL_CreateWindow("I HATE", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGTH, 0);//создание окна
+	win = SDL_CreateWindow("I HATE", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGTH, 0);//СЃРѕР·РґР°РЅРёРµ РѕРєРЅР°
 	if (win == NULL)
 	{
 		const char* s = SDL_GetError();
-		printf_s("Ошибка создания окна %s\n", s);
+		printf_s("СњС€РёР±РєР° СЃРѕР·РґР°РЅРёВ¤ РѕРєРЅР° %s\n", s);
 		return 5;
 	}
 
-	ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);//создание рендерера
+	ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);//СЃРѕР·РґР°РЅРёРµ СЂРµРЅРґРµСЂРµСЂР°
 	if (ren == NULL)
 	{
 		const char* s = SDL_GetError();
-		printf_s("Ошибка создания рендерера %s\n", s);
+		printf_s("СњС€РёР±РєР° СЃРѕР·РґР°РЅРёВ¤ СЂРµРЅРґРµСЂРµСЂР° %s\n", s);
 		return 6;
 	}
 
-	Mix_Music* music = NULL;//звуки игры
+	Mix_Music* music = NULL;//Р·РІСѓРєРё РёРіСЂС‹
 	Mix_Chunk* click = NULL;
 	Mix_Chunk* door = NULL;
 	click = Mix_LoadWAV("Click.wav");
 	door = Mix_LoadWAV("Door_open.wav");
 
-	music = Mix_LoadMUS("music.wav");//музыка
+	music = Mix_LoadMUS("music.wav");//РјСѓР·С‹РєР°
 	if (music == NULL)
 	{
-		printf("Ошибка загрузки музыки\n");
+		printf("СњС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РјСѓР·С‹РєРё\n");
 		return 1;
 	}
 	Mix_PlayMusic(music, -1);
@@ -64,16 +64,16 @@ int main(int argc, char** argv)
 	{
 		while (act)
 		{
-			sw = menu(ren, menurun);//начало игры с запуска меню
+			sw = menu(ren, menurun);//РЅР°С‡Р°Р»Рѕ РёРіСЂС‹ СЃ Р·Р°РїСѓСЃРєР° РјРµРЅСЋ
 			switch (sw)
 			{
-			case 1://начать игру, вход в меню выбора уровней
+			case 1://РЅР°С‡Р°С‚СЊ РёРіСЂСѓ, РІС…РѕРґ РІ РјРµРЅСЋ РІС‹Р±РѕСЂР° СѓСЂРѕРІРЅРµР№
 				Mix_PlayChannel(-1, click, 0);
 				sel = true;
 				menurun = false;
 				act = false;
 				break;
-			case 2://настройки
+			case 2://РЅР°СЃС‚СЂРѕР№РєРё
 				if (playing)
 				{
 					Mix_PlayChannel(-1, click, 0);
@@ -87,7 +87,7 @@ int main(int argc, char** argv)
 					playing = true;
 				}
 				break;
-			case 3://выход из игры
+			case 3://РІС‹С…РѕРґ РёР· РёРіСЂС‹
 				Mix_PlayChannel(-1, click, 0);
 				Mix_FreeChunk(door);
 				Mix_FreeChunk(click);
@@ -99,37 +99,37 @@ int main(int argc, char** argv)
 			}
 		}
 
-		if (sel)//если выбрали начать игру, открытие меню выбора уровней
+		if (sel)//РµСЃР»Рё РІС‹Р±СЂР°Р»Рё РЅР°С‡Р°С‚СЊ РёРіСЂСѓ, РѕС‚РєСЂС‹С‚РёРµ РјРµРЅСЋ РІС‹Р±РѕСЂР° СѓСЂРѕРІРЅРµР№
 			s = lvl_sel(ren, sel);
 
 		switch (s)
 		{
-		case 0://выход из игры
+		case 0://РІС‹С…РѕРґ РёР· РёРіСЂС‹
 			Mix_PlayChannel(-1, click, 0);
 			Mix_FreeChunk(door);
 			Mix_FreeChunk(click);
 			Mix_FreeMusic(music);
 			Quit(ren, win);
 			return 0;
-		case -1://вернуться в главное меню
+		case -1://РІРµСЂРЅСѓС‚СЊСЃВ¤ РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ
 			Mix_PlayChannel(-1, click, 0);
 			sel = false;
 			menurun = true;
 			act = true;
 			break;
-		case 1://запуск 1го уровня
+		case 1://Р·Р°РїСѓСЃРє 1РіРѕ СѓСЂРѕРІРЅВ¤
 			Mix_PlayChannel(-1, click, 0);
 			run_1 = true;
 			if (lvl_1(ren, run_1) == 1)
 				Mix_PlayChannel(1, door, 0); 
 			break;
-		case 2://запуск 2го уровня
+		case 2://Р·Р°РїСѓСЃРє 2РіРѕ СѓСЂРѕРІРЅВ¤
 			Mix_PlayChannel(-1, click, 0);
 			run_2 = true;
 			if (lvl_2(ren, run_2) == 1)
 				Mix_PlayChannel(1, door, 0);
 			break;
-		case 3://запуск 3го уровня
+		case 3://Р·Р°РїСѓСЃРє 3РіРѕ СѓСЂРѕРІРЅВ¤
 			Mix_PlayChannel(-1, click, 0);
 			run_3 = true;
 			lvl_3(ren, run_3);

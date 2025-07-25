@@ -1,6 +1,6 @@
 #include "Functions.h"
 
-struct menu_but//структура для хранения надписей на кнопках
+struct menu_but//СЃС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РЅР°РґРїРёСЃРµР№ РЅР° РєРЅРѕРїРєР°С…
 {
 	char but1[32];
 	char but2[32];
@@ -8,12 +8,12 @@ struct menu_but//структура для хранения надписей на кнопках
 	char NAME[32];
 };
 
-int menu_but_rec(const char file[], menu_but* menu)//чтение из файла в структуру надписей на кнопках
+int menu_but_rec(const char file[], menu_but* menu)//С‡С‚РµРЅРёРµ РёР· С„Р°Р№Р»Р° РІ СЃС‚СЂСѓРєС‚СѓСЂСѓ РЅР°РґРїРёСЃРµР№ РЅР° РєРЅРѕРїРєР°С…
 {
 	FILE* f;
 	if (fopen_s(&f, file, "r+") != 0)
 	{
-		printf_s("Не удалось открыть файл\n");
+		printf_s("РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»\n");
 		return 1;
 	}
 
@@ -58,14 +58,14 @@ void exit_menu(TTF_Font* txt, SDL_Texture* button, SDL_Texture* start, SDL_Textu
 	SDL_DestroyTexture(name);
 }
 
-int menu(SDL_Renderer* ren, bool run)//главное меню игры
+int menu(SDL_Renderer* ren, bool run)//РіР»Р°РІРЅРѕРµ РјРµРЅСЋ РёРіСЂС‹
 {
 	menu_but menub = { NULL,NULL,NULL };
 	SDL_Event ev;
 	SDL_Rect dstName = {200,50,500,100}, srcButton = { 0,0,0,0 }, dstButton = { 0,0,0,0 }, srcRectBrick = { 0,0,0,0 }, dstRectBrick = { 170,400,216,216 }, srcRectPers = { 0,0,0,0 }, dstRectPers = { 100,160,330,240 }, clip = { 0, 0, 110, 80 };
 	SDL_Texture* button = NULL, *start = NULL, *settings = NULL, *exit = NULL, *name = NULL, *persStand = NULL, *brick = NULL;
 	TTF_Font* txt = NULL;
-	SDL_Color txtc = { 0, 0, 0, 0 }; // цвет текста
+	SDL_Color txtc = { 0, 0, 0, 0 }; // С†РІРµС‚ С‚РµРєСЃС‚Р°
 		
 	float dt;
 	float frameTime = 0.03f;
@@ -74,16 +74,16 @@ int menu(SDL_Renderer* ren, bool run)//главное меню игры
 	int ot = SDL_GetTicks(), nt;
 	int n = 0, a = 0;
 
-	button = load("Button_long.png", &srcButton, ren, button);//кнопки в меню
+	button = load("Button_long.png", &srcButton, ren, button);//РєРЅРѕРїРєРё РІ РјРµРЅСЋ
 
-	txt = TTF_OpenFont("font.ttf", 100);//открытие шрифта для меню
+	txt = TTF_OpenFont("font.ttf", 100);//РѕС‚РєСЂС‹С‚РёРµ С€СЂРёС„С‚Р° РґР»СЏ РјРµРЅСЋ
 
 
 	menu_but_rec("Menu_Buttons.txt", &menub);
-	start = create_text_texture(ren, menub.but1, txt, txtc, &dstButton);//создание текстовых текстур для кнопок
+	start = create_text_texture(ren, menub.but1, txt, txtc, &dstButton);//СЃРѕР·РґР°РЅРёРµ С‚РµРєСЃС‚РѕРІС‹С… С‚РµРєСЃС‚СѓСЂ РґР»СЏ РєРЅРѕРїРѕРє
 	settings = create_text_texture(ren, menub.but2, txt, txtc, &dstButton);
 	exit = create_text_texture(ren, menub.but3, txt, txtc, &dstButton);
-	name = create_text_texture(ren, menub.NAME, txt, txtc, &dstName);//создание текстовой текстуры названия игры
+	name = create_text_texture(ren, menub.NAME, txt, txtc, &dstName);//СЃРѕР·РґР°РЅРёРµ С‚РµРєСЃС‚РѕРІРѕР№ С‚РµРєСЃС‚СѓСЂС‹ РЅР°Р·РІР°РЅРёСЏ РёРіСЂС‹
 
 	persStand = load("Sprites/StandSprites.png", &srcRectPers, ren, persStand);
 	brick = load("KenneY/PNG/brick.png", &srcRectBrick, ren, brick);
@@ -94,7 +94,7 @@ int menu(SDL_Renderer* ren, bool run)//главное меню игры
 		dt = (nt - ot) / 1000.0f;
 		ot = nt;
 
-		while (SDL_PollEvent(&ev))//обработка событий
+		while (SDL_PollEvent(&ev))//РѕР±СЂР°Р±РѕС‚РєР° СЃРѕР±С‹С‚РёР№
 		{
 			switch (ev.type)
 			{
@@ -111,19 +111,19 @@ int menu(SDL_Renderer* ren, bool run)//главное меню игры
 				case SDL_BUTTON_LEFT:
 					int x = ev.button.x;
 					int y = ev.button.y;
-					if (x >= 700 && x <= 1080)//проверка попадания клика в кнопки
+					if (x >= 700 && x <= 1080)//РїСЂРѕРІРµСЂРєР° РїРѕРїР°РґР°РЅРёСЏ РєР»РёРєР° РІ РєРЅРѕРїРєРё
 					{
-						if (y >= 200 && y <= 300)//для 1ой кнопки(старт игры)
+						if (y >= 200 && y <= 300)//РґР»СЏ 1РѕР№ РєРЅРѕРїРєРё(СЃС‚Р°СЂС‚ РёРіСЂС‹)
 						{
 							exit_menu(txt, button, start, settings, exit, persStand, brick, name);
 							return 1;
 						}
-						if (y >= 320 && y <= 420)//настройки
+						if (y >= 320 && y <= 420)//РЅР°СЃС‚СЂРѕР№РєРё
 						{
 							exit_menu(txt, button, start, settings, exit, persStand, brick, name);
 							return 2;
 						}
-						if (y >= 440 && y <= 540)//выход из игры
+						if (y >= 440 && y <= 540)//РІС‹С…РѕРґ РёР· РёРіСЂС‹
 						{
 							exit_menu(txt, button, start, settings, exit, persStand, brick, name);
 							return 3;
@@ -134,12 +134,12 @@ int menu(SDL_Renderer* ren, bool run)//главное меню игры
 			}
 		}
 
-		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255); //фон 
+		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255); //С„РѕРЅ 
 		SDL_RenderClear(ren);
 
 		SDL_RenderCopy(ren, name, NULL, &dstName);
 
-		for (int i = 0; i < 3; i++)//отрисовка кнопок с текстом
+		for (int i = 0; i < 3; i++)//РѕС‚СЂРёСЃРѕРІРєР° РєРЅРѕРїРѕРє СЃ С‚РµРєСЃС‚РѕРј
 		{
 			dstButton = { 700, 200 + i * (100 + 20),380,100 };
 			SDL_RenderCopy(ren, button, NULL, &dstButton);
@@ -159,8 +159,8 @@ int menu(SDL_Renderer* ren, bool run)//главное меню игры
 			}
 		}
 
-//отрисовка персонажа на блоке
-		animTime += dt;//анимация стояния
+//РѕС‚СЂРёСЃРѕРІРєР° РїРµСЂСЃРѕРЅР°Р¶Р° РЅР° Р±Р»РѕРєРµ
+		animTime += dt;//Р°РЅРёРјР°С†РёСЏ СЃС‚РѕСЏРЅРёСЏ
 		if (animTime > frameTime)
 		{
 			if (a < 3)

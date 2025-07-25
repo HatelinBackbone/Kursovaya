@@ -23,7 +23,7 @@ int Quit_2(SDL_Texture* persStand, SDL_Texture* persRun, SDL_Texture* brick, SDL
 	return 0;
 }
 
-int maprender_2(map* map, SDL_Renderer* ren, SDL_Texture* brick, SDL_Texture* doorc, SDL_Texture* dooro, SDL_Rect* dstRectPers) // отрисовка карты
+int maprender_2(map* map, SDL_Renderer* ren, SDL_Texture* brick, SDL_Texture* doorc, SDL_Texture* dooro, SDL_Rect* dstRectPers) // РѕС‚СЂРёСЃРѕРІРєР° РєР°СЂС‚С‹
 {
 	bool mapren = true;
 	while (mapren)
@@ -75,8 +75,8 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 	Vector2f speedPers = { 0, 0 };
 	Vector2f globalAccel = { 0, 0 };
 
-	TTF_Font* text; //шрифт текста на уровнях
-	SDL_Color tc = { 0, 0, 0, 0 }; // цвет текста
+	TTF_Font* text; //С€СЂРёС„С‚ С‚РµРєСЃС‚Р° РЅР° СѓСЂРѕРІРЅСЏС…
+	SDL_Color tc = { 0, 0, 0, 0 }; // С†РІРµС‚ С‚РµРєСЃС‚Р°
 
 	Uint32 start = 0;
 	start = SDL_GetTicks();
@@ -125,7 +125,7 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 
 	map map = { NULL, NULL, 0, 0, NULL };
 
-	text = TTF_OpenFont("font.ttf", 90);//открытие шрифта
+	text = TTF_OpenFont("font.ttf", 90);//РѕС‚РєСЂС‹С‚РёРµ С€СЂРёС„С‚Р°
 
 	persStand = load("Sprites/StandSprites.png", &srcRectPers, ren, persStand);
 	dstRectPers = { 0 ,0, 110, 80 };
@@ -138,10 +138,10 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 
 	doorc = load("KenneY/PNG/DoorC.png", &srcRectDoorc, ren, doorc);
 
-	if (level_info("Level2.txt", &map) == 1)//считывание в структуру 2 уровня
+	if (level_info("Level2.txt", &map) == 1)//СЃС‡РёС‚С‹РІР°РЅРёРµ РІ СЃС‚СЂСѓРєС‚СѓСЂСѓ 2 СѓСЂРѕРІРЅСЏ
 		return 1;
 
-	tok = strtok_s(map.note, "\n", &next_tok);	//текст для уровня 2
+	tok = strtok_s(map.note, "\n", &next_tok);	//С‚РµРєСЃС‚ РґР»СЏ СѓСЂРѕРІРЅСЏ 2
 	text_tex = create_text_texture(ren, tok, text, tc, &rect_t);
 
 	while (run_2)
@@ -178,16 +178,16 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 				case SDL_BUTTON_LEFT:
 					x = e.button.x;
 					y = e.button.y;
-					if (x >= brRect.x && x <= brRect.x + brRect.w)//проверка попадания клика в блок
+					if (x >= brRect.x && x <= brRect.x + brRect.w)//РїСЂРѕРІРµСЂРєР° РїРѕРїР°РґР°РЅРёСЏ РєР»РёРєР° РІ Р±Р»РѕРє
 						if (y >= brRect.y && y <= brRect.y + brRect.h)
 						{
 							click = true;
-							dx = x - brRect.x;//разность координат блока и курсора
+							dx = x - brRect.x;//СЂР°Р·РЅРѕСЃС‚СЊ РєРѕРѕСЂРґРёРЅР°С‚ Р±Р»РѕРєР° Рё РєСѓСЂСЃРѕСЂР°
 							dy = y - brRect.y;
 						}
 				break;
 				}
-			case SDL_MOUSEMOTION://движение блока за курсором
+			case SDL_MOUSEMOTION://РґРІРёР¶РµРЅРёРµ Р±Р»РѕРєР° Р·Р° РєСѓСЂСЃРѕСЂРѕРј
 				mx = e.motion.x;
 				my = e.motion.y;
 				if (click)
@@ -196,7 +196,7 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 					brRect.y = my - dy;
 				}
 				break;
-			case SDL_MOUSEBUTTONUP://прекращение следования блока за курсором
+			case SDL_MOUSEBUTTONUP://РїСЂРµРєСЂР°С‰РµРЅРёРµ СЃР»РµРґРѕРІР°РЅРёСЏ Р±Р»РѕРєР° Р·Р° РєСѓСЂСЃРѕСЂРѕРј
 				switch (e.button.button)
 				{
 				case SDL_BUTTON_LEFT:
@@ -206,14 +206,14 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 			break;
 			}
 		}
-//механика уровня
+//РјРµС…Р°РЅРёРєР° СѓСЂРѕРІРЅСЏ
 		speedPers.x += globalAccel.x * dt;
 		speedPers.y += globalAccel.y * dt;
 
 		posPers.x += speedPers.x * dt;
 		posPers.y += speedPers.y * dt;
 
-		if (posPers.x <= 248 || posPers.x + dstRectPers.w >= 1008)//коллизия с полом
+		if (posPers.x <= 248 || posPers.x + dstRectPers.w >= 1008)//РєРѕР»Р»РёР·РёСЏ СЃ РїРѕР»РѕРј
 		{
 			if (posPers.y + dstRectPers.h > floorRect.y && posPers.y + dstRectPers.h < floorRect.y + floorRect.h)
 			{
@@ -224,58 +224,58 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 			}
 		}
 
-		if (posPers.x <= -30 || posPers.x + dstRectPers.w >= 1316 || posPers.y >= 720)//выход за пределы экрана
+		if (posPers.x <= -30 || posPers.x + dstRectPers.w >= 1316 || posPers.y >= 720)//РІС‹С…РѕРґ Р·Р° РїСЂРµРґРµР»С‹ СЌРєСЂР°РЅР°
 		{
 			posPers = { 100,550 };
 			DeathCounter++;
 		}
 
-		if (posPers.y <= 495 && posPers.y >= 490)//коллизия с боковинами
+		if (posPers.y <= 495 && posPers.y >= 490)//РєРѕР»Р»РёР·РёСЏ СЃ Р±РѕРєРѕРІРёРЅР°РјРё
 		{
-			if ((posPers.x <= 42 && posPers.x >= -20) || (posPers.x + dstRectPers.w <= 92 && posPers.x + dstRectPers.w >= 0))//низ левой
+			if ((posPers.x <= 42 && posPers.x >= -20) || (posPers.x + dstRectPers.w <= 92 && posPers.x + dstRectPers.w >= 0))//РЅРёР· Р»РµРІРѕР№
 			{
 				posPers.y = 495;
 				speedPers.y = 0;
 			}
-			if ((posPers.x >= 1204 && posPers.x <= 1276) || (posPers.x + dstRectPers.w >= 1244 && posPers.x + dstRectPers.w <= 1306))//низ правой
+			if ((posPers.x >= 1204 && posPers.x <= 1276) || (posPers.x + dstRectPers.w >= 1244 && posPers.x + dstRectPers.w <= 1306))//РЅРёР· РїСЂР°РІРѕР№
 			{
 				posPers.y = 495;
 				speedPers.y = 0;
 			}
 		}
-		if (posPers.y < 495)//бок левой
+		if (posPers.y < 495)//Р±РѕРє Р»РµРІРѕР№
 		{
 			if (posPers.x <= 42)
 			{
 				speedPers.x = 0;
 				posPers.x = 42;
 			}
-			if (posPers.x + dstRectPers.w >= 1244)//бок правой
+			if (posPers.x + dstRectPers.w >= 1244)//Р±РѕРє РїСЂР°РІРѕР№
 			{
 				speedPers.x = 0;
 				posPers.x = 1134;
 			}
 		}
 
-		if ((colPers.y < brRect.y + brRect.h && colPers.y >= brRect.y + brRect.h - 1) && (colPers.x + colPers.w > brRect.x && colPers.x < brRect.x + brRect.w))//коллизия с низом блока
+		if ((colPers.y < brRect.y + brRect.h && colPers.y >= brRect.y + brRect.h - 1) && (colPers.x + colPers.w > brRect.x && colPers.x < brRect.x + brRect.w))//РєРѕР»Р»РёР·РёСЏ СЃ РЅРёР·РѕРј Р±Р»РѕРєР°
 		{
 			speedPers.y = 0;
 			posPers.y = brRect.y + brRect.h;
 		}
 		else
-			if ((colPers.y > brRect.y || colPers.y < brRect.y + brRect.h) && (colPers.y + colPers.h > brRect.y) && (colPers.y < brRect.y + brRect.h) && (colPers.x + colPers.w > brRect.x && colPers.x < brRect.x + 2))//коллизия с левым боком блока
+			if ((colPers.y > brRect.y || colPers.y < brRect.y + brRect.h) && (colPers.y + colPers.h > brRect.y) && (colPers.y < brRect.y + brRect.h) && (colPers.x + colPers.w > brRect.x && colPers.x < brRect.x + 2))//РєРѕР»Р»РёР·РёСЏ СЃ Р»РµРІС‹Рј Р±РѕРєРѕРј Р±Р»РѕРєР°
 			{
 				speedPers.x = 0;
 				posPers.x = brRect.x - colPers.w - 20;
 			}
 			else
-				if ((colPers.y > brRect.y || colPers.y < brRect.y + brRect.h) && (colPers.y + colPers.h > brRect.y) && (colPers.y < brRect.y + brRect.h)&&(colPers.x < brRect.x + brRect.w && colPers.x > brRect.x + (brRect.w - 2)))//коллизия с правым боком блока
+				if ((colPers.y > brRect.y || colPers.y < brRect.y + brRect.h) && (colPers.y + colPers.h > brRect.y) && (colPers.y < brRect.y + brRect.h)&&(colPers.x < brRect.x + brRect.w && colPers.x > brRect.x + (brRect.w - 2)))//РєРѕР»Р»РёР·РёСЏ СЃ РїСЂР°РІС‹Рј Р±РѕРєРѕРј Р±Р»РѕРєР°
 				{
 					speedPers.x = 0;
 					posPers.x = brRect.x + brRect.w - 20;
 				}
 				else
-					if ((posPers.y + dstRectPers.h > brRect.y && posPers.y + dstRectPers.h <= brRect.y + 1) && (colPers.x + colPers.w > brRect.x && colPers.x < brRect.x + brRect.w))//коллизия с верхом блока
+					if ((posPers.y + dstRectPers.h > brRect.y && posPers.y + dstRectPers.h <= brRect.y + 1) && (colPers.x + colPers.w > brRect.x && colPers.x < brRect.x + brRect.w))//РєРѕР»Р»РёР·РёСЏ СЃ РІРµСЂС…РѕРј Р±Р»РѕРєР°
 					{
 						posPers.y = brRect.y - dstRectPers.h;
 						speedPers.y = 0;
@@ -287,7 +287,7 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 		if (old_posPers.y < posPers.y && !fall)
 			fall = true;
 		
-		if (makeJump)//прыжок
+		if (makeJump)//РїСЂС‹Р¶РѕРє
 		{
 			if (onfloor && !fall)
 			{
@@ -297,7 +297,7 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 			makeJump = false;
 		}
 
-		const Uint8* state = SDL_GetKeyboardState(NULL); //повороты в лево/право
+		const Uint8* state = SDL_GetKeyboardState(NULL); //РїРѕРІРѕСЂРѕС‚С‹ РІ Р»РµРІРѕ/РїСЂР°РІРѕ
 		if (!(state[SDL_SCANCODE_A] && state[SDL_SCANCODE_D]))
 		{
 			if (state[SDL_SCANCODE_A])
@@ -321,10 +321,10 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 
 		dstRectPers.x = posPers.x;
 		dstRectPers.y = posPers.y;
-		colPers = { dstRectPers.x + 20, dstRectPers.y + 9, dstRectPers.w - 40, dstRectPers.h - 9};//новый квадрат для коллизии персонажа
+		colPers = { dstRectPers.x + 20, dstRectPers.y + 9, dstRectPers.w - 40, dstRectPers.h - 9};//РЅРѕРІС‹Р№ РєРІР°РґСЂР°С‚ РґР»СЏ РєРѕР»Р»РёР·РёРё РїРµСЂСЃРѕРЅР°Р¶Р°
 		old_posPers = posPers;
 
-		if (isIdle && onfloor) //анимация стояния
+		if (isIdle && onfloor) //Р°РЅРёРјР°С†РёСЏ СЃС‚РѕСЏРЅРёСЏ
 		{
 			animTime += dt;
 			if (animTime > frameTime)
@@ -348,7 +348,7 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 			}
 		}
 
-		if (!isIdle && onfloor) //анимация бега
+		if (!isIdle && onfloor) //Р°РЅРёРјР°С†РёСЏ Р±РµРіР°
 		{
 			animTime += dt;
 			if (animTime > frameTime)
@@ -367,21 +367,21 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 			}
 		}
 
-		//====================================================== ОТРИСОВКА ===============================================================================
-		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);//фон
+		//====================================================== РћРўР РРЎРћР’РљРђ ===============================================================================
+		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);//С„РѕРЅ
 		SDL_RenderClear(ren);
 
-		if (maprender_2(&map, ren, brick, doorc, dooro, &dstRectPers) != 0 && maprender_2(&map, ren, brick, doorc, dooro, &dstRectPers) !=1)//отрисовка карты
+		if (maprender_2(&map, ren, brick, doorc, dooro, &dstRectPers) != 0 && maprender_2(&map, ren, brick, doorc, dooro, &dstRectPers) !=1)//РѕС‚СЂРёСЃРѕРІРєР° РєР°СЂС‚С‹
 		{
-			printf_s("Ошибка отрисовки уровня\n");
+			printf_s("РћС€РёР±РєР° РѕС‚СЂРёСЃРѕРІРєРё СѓСЂРѕРІРЅСЏ\n");
 			return 2;
 		}
 		if (maprender_2(&map, ren, brick, doorc, dooro, &dstRectPers) == 1)
 			passed = true;
 
-		SDL_RenderCopy(ren, brick, NULL, &brRect);//отрисовка перетаскивающегося блока
+		SDL_RenderCopy(ren, brick, NULL, &brRect);//РѕС‚СЂРёСЃРѕРІРєР° РїРµСЂРµС‚Р°СЃРєРёРІР°СЋС‰РµРіРѕСЃСЏ Р±Р»РѕРєР°
 
-		if (isIdle && onfloor)//отрисовка стоящего персонажа
+		if (isIdle && onfloor)//РѕС‚СЂРёСЃРѕРІРєР° СЃС‚РѕСЏС‰РµРіРѕ РїРµСЂСЃРѕРЅР°Р¶Р°
 		{
 			switch (dirPers)
 			{
@@ -394,7 +394,7 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 			}
 		}
 
-		if (!isIdle && onfloor)//отрисовка бегущего персонажа
+		if (!isIdle && onfloor)//РѕС‚СЂРёСЃРѕРІРєР° Р±РµРіСѓС‰РµРіРѕ РїРµСЂСЃРѕРЅР°Р¶Р°
 		{
 			switch (dirPers)
 			{
@@ -407,7 +407,7 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 			}
 		}
 
-		if (!onfloor)//отрисовка прыжка
+		if (!onfloor)//РѕС‚СЂРёСЃРѕРІРєР° РїСЂС‹Р¶РєР°
 		{
 			switch (dirPers)
 			{
@@ -420,12 +420,12 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 			}
 		}
 
-		if (globalAccel.y == 0)//для корректного первого запуска
+		if (globalAccel.y == 0)//РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕРіРѕ РїРµСЂРІРѕРіРѕ Р·Р°РїСѓСЃРєР°
 			globalAccel = { 0, 1200 };
 
-		SDL_RenderCopy(ren, text_tex, NULL, &rect_t);//отрисовка текста на уровне
+		SDL_RenderCopy(ren, text_tex, NULL, &rect_t);//РѕС‚СЂРёСЃРѕРІРєР° С‚РµРєСЃС‚Р° РЅР° СѓСЂРѕРІРЅРµ
 
-		if (SDL_GetTicks() - start == 1000)//таймер
+		if (SDL_GetTicks() - start == 1000)//С‚Р°Р№РјРµСЂ
 		{
 			time_s += 1;
 			if (time_s % 60 == 0)
@@ -436,7 +436,7 @@ int lvl_2(SDL_Renderer* ren, bool run_2)
 			time = timer(time_s, time_m, time, ren, text, tc, &time_r);
 			start = SDL_GetTicks();
 		}
-		SDL_RenderCopy(ren, time, NULL, &time_r);//отрисовка таймера
+		SDL_RenderCopy(ren, time, NULL, &time_r);//РѕС‚СЂРёСЃРѕРІРєР° С‚Р°Р№РјРµСЂР°
 
 		SDL_RenderPresent(ren);
 		if (passed)

@@ -15,7 +15,7 @@ struct Vector2f
 	float x, y;
 };
 
-struct map //структура уровня 
+struct map //СЃС‚СЂСѓРєС‚СѓСЂР° СѓСЂРѕРІРЅСЏ 
 {
 	char lvl[16];
 	char note[256];
@@ -23,10 +23,10 @@ struct map //структура уровня
 	char** rect;
 };
 
-int init();//инициализация библиотек
-SDL_Texture* load(const char* file,SDL_Rect* rect, SDL_Renderer* ren, SDL_Texture* tex);//создание текстуры из файла
-int maprender(map* map, SDL_Renderer* ren, SDL_Texture* brick, SDL_Texture* doorc, SDL_Texture* dooro, SDL_Rect* dstRectPers);//отрисовка карты из структуры
-int level_info(const char file[], map *Map);//запись данных их файла в структуру
-int Quit(SDL_Renderer* ren, SDL_Window* win);//закрытие всех библиотек и освобождение памяти
-SDL_Texture* create_text_texture(SDL_Renderer* ren, const char* text, TTF_Font* font, SDL_Color color, SDL_Rect* rect);//создание текстуры текста
-SDL_Texture* timer(Uint16 time_s, Uint16 time_m, SDL_Texture* time, SDL_Renderer* ren, TTF_Font* text, SDL_Color tc, SDL_Rect* time_r);//таймер
+int init();//РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р±РёР±Р»РёРѕС‚РµРє
+SDL_Texture* load(const char* file,SDL_Rect* rect, SDL_Renderer* ren, SDL_Texture* tex);//СЃРѕР·РґР°РЅРёРµ С‚РµРєСЃС‚СѓСЂС‹ РёР· С„Р°Р№Р»Р°
+int maprender(map* map, SDL_Renderer* ren, SDL_Texture* brick, SDL_Texture* doorc, SDL_Texture* dooro, SDL_Rect* dstRectPers);//РѕС‚СЂРёСЃРѕРІРєР° РєР°СЂС‚С‹ РёР· СЃС‚СЂСѓРєС‚СѓСЂС‹
+int level_info(const char file[], map *Map);//Р·Р°РїРёСЃСЊ РґР°РЅРЅС‹С… РёС… С„Р°Р№Р»Р° РІ СЃС‚СЂСѓРєС‚СѓСЂСѓ
+int Quit(SDL_Renderer* ren, SDL_Window* win);//Р·Р°РєСЂС‹С‚РёРµ РІСЃРµС… Р±РёР±Р»РёРѕС‚РµРє Рё РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё
+SDL_Texture* create_text_texture(SDL_Renderer* ren, const char* text, TTF_Font* font, SDL_Color color, SDL_Rect* rect);//СЃРѕР·РґР°РЅРёРµ С‚РµРєСЃС‚СѓСЂС‹ С‚РµРєСЃС‚Р°
+SDL_Texture* timer(Uint16 time_s, Uint16 time_m, SDL_Texture* time, SDL_Renderer* ren, TTF_Font* text, SDL_Color tc, SDL_Rect* time_r);//С‚Р°Р№РјРµСЂ
